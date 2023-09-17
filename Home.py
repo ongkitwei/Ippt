@@ -49,8 +49,8 @@ if minutes or seconds:
     print(type(seconds))
     with col6:
         st.write(f'<b>{str(data.get_running_points(minutes, seconds, option))} points</b>', unsafe_allow_html=True)
-        st.write(minutes)
-        st.write(seconds)
+        # st.write(minutes)
+        # st.write(seconds)
 
 if calculate_button:
     pushup_points = data.get_pushup_points(pushup_reps, age=option.strip())
