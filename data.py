@@ -20,13 +20,14 @@ def get_situp_points(situp_reps, age):
 
     if situp_reps == 0:
         return 0
-    elif situp_reps in df.loc[:, "Age"]:
+    elif situp_reps > int(df.loc[df[age] == 25, "Age"]):
+        return 25.0
+    else:
         columns = df.columns
         # list_column = [c for c in columns[1:]]
         list_points = df.loc[df['Age'] == str(situp_reps), age].squeeze()
         return list_points
-    else:
-        return df.loc[df["Age"] == "60", age].squeeze()
+    
         
 # Calculate 2.4Km points
 def get_running_points_old(minutes, seconds):
@@ -58,13 +59,14 @@ def get_pushup_points(pushup_reps, age):
     # age = "<22"
     if pushup_reps == 0:
         return 0
-    elif pushup_reps in df.loc[:, "Age"]:
+    elif pushup_reps > int(df.loc[df[age] == 25, "Age"]):
+        return 25.0
+    else:
         columns = df.columns
         # list_column = [c for c in columns[1:]]
         list_points = df.loc[df['Age'] == str(pushup_reps), age].squeeze()
         return list_points
-    else:
-        return df.loc[df["Age"] == "60", age].squeeze()
+    
 
 def get_running_points(minutes, seconds, age): 
     df = pandas.read_csv("run.csv", sep=",")
@@ -76,6 +78,10 @@ def get_running_points(minutes, seconds, age):
     print("")
     if float(f'{str(minutes)}.{str(seconds_2d)}') > float(df.loc[df["Age "] == "18:20", "Age "].squeeze().replace(":",".")):
         return 0
+    
+    elif float(f'{str(minutes)}.{str(seconds_2d)}') < float(df.loc[df[age] == 50, "Age "].squeeze().replace(":",".")):
+        return 50
+
     else:
         for index, li in enumerate(list_time, start=2):
             if float(li) >= float(f'{str(minutes)}.{str(seconds_2d)}'):
